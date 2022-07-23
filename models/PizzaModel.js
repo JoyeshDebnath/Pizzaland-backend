@@ -12,10 +12,12 @@ const pizzaSchema = mongoose.Schema(
 			type: String,
 			required: [true, "Please provide the pizza category !!"],
 		},
-		image: {
-			type: String,
-			required: [true, "Please provide the pizza image !!!"],
-		},
+		image: [
+			{
+				type: String,
+				required: [true, "Please provide the pizza image !!!"],
+			},
+		],
 		description: {
 			type: String,
 			required: [true, "Please provide the description of the pizza !!!"],
