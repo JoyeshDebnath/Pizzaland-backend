@@ -86,4 +86,17 @@ router.get("/getallorders", async (req, res) => {
 	}
 });
 
+//delivering orders
+
+router.post("/deliverorder", async (req, res) => {
+	const orderid = req.body.orderid;
+	try {
+		const order = await Order.findOne({ _id: orderid });
+		order.isDelivered = true;
+		await order.save();
+		res.send("Order Delivered Successfully");
+	} catch (error) {
+		return res.status(400).json({ message: error });
+	}
+});
 module.exports = router;
