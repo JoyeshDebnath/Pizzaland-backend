@@ -73,4 +73,15 @@ router.post("/editpizza", async (req, res) => {
 	}
 });
 
+//deleting a pizza
+router.post("/deletepizza", async (req, res) => {
+	try {
+		const pizzaid = req.body.pizzaid;
+		await Pizza.findOneAndDelete({ _id: pizzaid });
+		res.send("Pizza Deleted successfully");
+	} catch (err) {
+		res.send(err);
+	}
+});
+
 module.exports = router;
