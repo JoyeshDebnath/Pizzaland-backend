@@ -76,4 +76,14 @@ router.post("/getuserorders", async (req, res) => {
 	}
 });
 
+// get all orders ....
+router.get("/getallorders", async (req, res) => {
+	try {
+		const orders = await Order.find({});
+		res.status(200).send(orders);
+	} catch (err) {
+		res.status(404).send(err.message);
+	}
+});
+
 module.exports = router;
