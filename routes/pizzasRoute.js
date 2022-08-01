@@ -36,4 +36,41 @@ router.post("/addpizza", async (req, res) => {
 	}
 });
 
+//getting a sepcific pizza by ID
+router.post("/getpizzabyid", async (req, res) => {
+	const pizzaid = req.body.pizzaid;
+	console.log(pizzaid);
+	try {
+		const pizza = await Pizza.findOne({ _id: pizzaid });
+		res.status(200).json(pizza);
+	} catch (error) {
+		res.status(400).json({
+			status: "Failed",
+			message: "error.message",
+		});
+	}
+});
+
+//ediditing the pizza details
+router.post("/editpizza", async (req, res) => {
+	// const editedPizza = req.body.editedpizza;
+	const editedpizza = req.body.editedpizza;
+	// console.log("This is edited pizza", editedpizza);
+	try {
+		var pizza = await Pizza.findOne({ _id: editedpizza._id });
+		(pizza.name = editedpizza.name),
+			(pizza.description = editedpizza.description),
+			// (pizza.image[0] = editedpizza.image),
+			(pizza.category = editedpizza.category),
+			(pizza.prices = [editedpizza.prices]);
+
+		await pizza.save();
+
+		res.send("Pizza Details Edited successfully");
+	} catch (err) {
+		console.error(err.message);
+		res.status(400).send(err);
+	}
+});
+
 module.exports = router;
